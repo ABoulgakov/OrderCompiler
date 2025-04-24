@@ -50,8 +50,11 @@ def launch_order_compiler():
 if __name__=="__main__":
   launch_order_compiler()
 
-  # checker température pour réduire l'entropie.. possible sur gpt 4o mini ? 
   # selectionner des mails sur une période donnée  ? 
+  # ensuite faire une autre call à chat GPT en lui demandant de faire une suggerer \
+  # un mapping vs un produit dans le catalogue
+  # checker température pour réduire l'entropie et éviter les df miss.. possible sur gpt 4o mini ? 
+
 
 
 
