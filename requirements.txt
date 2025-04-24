@@ -1,7 +1,7 @@
-openai
-pandas
-datetime
-python-dotenv
+openai==1.76.0
+pandas==2.2.3
+datetime==5.5
+python-dotenv==1.1.0
 json
 bs4
 streamlit
