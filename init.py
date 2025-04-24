@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import pandas as pd
+import streamlit as st
 
 from connectors.mailbox import *
 from connectors.gpt import call_gpt
