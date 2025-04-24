@@ -2,7 +2,6 @@ openai
 pandas
 datetime
 python-dotenv
-ast
 os
 json
 bs4
