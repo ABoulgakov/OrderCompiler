@@ -6,8 +6,9 @@ from init import launch_order_compiler
 # --- SETTINGS ---
 APP_TITLE = "Agrégateur de commandes"
 
-load_dotenv()
-password = os.getenv("APP_PASSWORD")
+#load_dotenv()
+#password = os.getenv("APP_PASSWORD")
+password = st.secrets["APP_PASSWORD"]
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title=APP_TITLE, 
