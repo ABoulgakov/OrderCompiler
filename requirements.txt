@@ -2,7 +2,6 @@ openai
 pandas
 datetime
 python-dotenv
-os
 json
 bs4
 streamlit
