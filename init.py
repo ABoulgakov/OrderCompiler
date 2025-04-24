@@ -13,7 +13,6 @@ def launch_order_compiler():
   print("***** 🚨 Début de la tâche 🚨 *****")
 
   # Get environment variables
-  #load_dotenv()
   #gpt_key = os.getenv("OPENAI_API_KEY")
   gpt_key = st.secrets["OPENAI_API_KEY"]
   #imap_server = os.getenv("IMAP_SERVER")

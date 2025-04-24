@@ -1,0 +1,11 @@
+# Ignore Python cache and venv
+__pycache__/
+*.pyc
+venv/
+
+# Ignore environment files
+.env
+.streamlit/secrets.toml
+
+# Ignore OS-specific files
+.DS_Store
