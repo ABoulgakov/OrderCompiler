@@ -24,11 +24,11 @@ def launch_order_compiler():
 
   # Access mailbox content
   print("*** Récupération des emails ***")
-  fetch_emails(imap_server, email_adress, email_password)
+  mailbox_content = fetch_emails(imap_server, email_adress, email_password)
 
   # Email preprocessing
   print("*** Préparation des emails ***")
-  orders_dict = prep_orders_json()
+  orders_dict = prep_orders_json(mailbox_content)
   print(f"Nombre d'expéditeurs trouvés: {len(orders_dict)}")
 
   # Feed emails to chat GPT client by client and store orders as dictionnaries in a single list variable

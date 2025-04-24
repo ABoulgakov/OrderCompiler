@@ -73,10 +73,12 @@ def fetch_emails(server, email_adress, password):
 
     imap.logout()
 
-    with open("data/inbox_emails.json", "w", encoding="utf-8") as f:
-        json.dump(emails_json, f, indent=2, ensure_ascii=False)
+    #with open("data/inbox_emails.json", "w", encoding="utf-8") as f:
+    #    json.dump(emails_json, f, indent=2, ensure_ascii=False)
 
     print("✅ Emails récupérés avec succès")
+
+    return emails_json
 
 if __name__ == "__main__":
     import os
