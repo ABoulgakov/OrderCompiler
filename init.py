@@ -8,7 +8,7 @@ from connectors.gpt import call_gpt
 from manager.queries import *
 from manager.emails import *
 
-def launch_order_compiler():
+def launch_order_compiler(email_adress="default", email_password="default"):
 
   print("***** 🚨 Début de la tâche 🚨 *****")
 
@@ -17,10 +17,12 @@ def launch_order_compiler():
   gpt_key = st.secrets["OPENAI_API_KEY"]
   #imap_server = os.getenv("IMAP_SERVER")
   imap_server = st.secrets["IMAP_SERVER"]
-  #email_adress = os.getenv("EMAIL_USER")
-  email_adress = st.secrets["EMAIL_USER"]
-  #email_password = os.getenv("EMAIL_PASS")
-  email_password = st.secrets["EMAIL_PASS"]
+
+  if (email_adress == "default") | (email_password == "default"):
+    #email_adress = os.getenv("EMAIL_USER")
+    email_adress = st.secrets["EMAIL_USER"]
+    #email_password = os.getenv("EMAIL_PASS")
+    email_password = st.secrets["EMAIL_PASS"]
 
   # Access mailbox content
   print("*** Récupération des emails ***")

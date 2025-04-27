@@ -1,6 +1,8 @@
 import imaplib
 import email
 from email.header import decode_header
+from email.utils import parsedate_to_datetime
+from datetime import datetime, timedelta
 import json
 from bs4 import BeautifulSoup
 
@@ -41,12 +43,25 @@ def get_email_body(msg):
             pass
     return body.strip()
 
-def fetch_emails(server, email_adress, password):
+def test_connection(server, email_adress, password):
+    try:
+        imap = imaplib.IMAP4_SSL(server)
+        imap.login(email_adress, password)
+        return True
+    except:
+        return False
+
+def fetch_emails(server, email_adress, password, days_lookback='ALL'):
     imap = imaplib.IMAP4_SSL(server)
     imap.login(email_adress, password)
     imap.select("INBOX")
 
-    status, messages = imap.search(None, "ALL")
+    date_since = (datetime.now() - timedelta(days=1)).strftime('%d-%b-%Y')
+    if days_lookback=="ALL":
+        status, messages = imap.search(None, "ALL")
+    else:
+        status, messages = imap.search(None, f'(SINCE {date_since})')
+
     email_ids = messages[0].split()
 
     emails_json = []
@@ -87,4 +102,6 @@ if __name__ == "__main__":
     imap_server = os.getenv("IMAP_SERVER")
     email_adress = os.getenv("EMAIL_USER")
     email_password = os.getenv("EMAIL_PASS")
-    fetch_emails(imap_server, email_adress, email_password)
+    #fetch_emails(imap_server, email_adress, email_password, days_lookback=1)
+    status = test_connection(imap_server, email_adress, email_password)
+    print(status)

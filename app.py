@@ -1,6 +1,8 @@
 import os
 import streamlit as st
 from dotenv import load_dotenv
+
+from connectors.mailbox import test_connection
 from init import launch_order_compiler
 
 # --- SETTINGS ---
@@ -32,12 +34,25 @@ if not st.session_state.authenticated:
 
 # --- MAIN APP ---
 st.title(APP_TITLE)
-st.write("Bienvenue dans l'agrégateur de commande intelligent.")
+st.write("Bienvenue dans l'agrégateur de commande intelligent. Pour charger les commandes de l'email par défaut, cliquer directement sur le bouton.")
+
+email_adress = st.text_input("email adress", "default")
+email_password = st.text_input("mot de passe", "default")
 
 if st.button("Récupérer les commandes"):
-    df, nb_clients, nb_orders = launch_order_compiler()
-    st.write(f"Des commandes ont été reçues par {nb_clients} client{'s' if nb_clients > 1 else ''}, \
+
+    mailbox_status = True
+    if (email_adress != "default") | (email_password != "default"):
+        mailbox_status = test_connection("imap.ionos.fr", email_adress, email_password)
+        if mailbox_status:
+            st.write(" ✅ Connection à la boîte maile réussie")
+        else:
+            st.write(" ❌ La connection à la boîte maile a échouée. Pour information il est nécessaire d'avoir une boîte hébergée sur un serveur IONOS.fr")
+    
+    if mailbox_status | (email_adress=="default"):
+        df, nb_clients, nb_orders = launch_order_compiler(email_adress="default", email_password="default")
+        st.write(f"Durant les 24 dernières heures, des commandes ont été reçues par {nb_clients} client{'s' if nb_clients > 1 else ''}, \
             pour un total de {nb_orders} commande{'s' if nb_orders > 1 else ''}."
             )
-    st.dataframe(df, use_container_width=True)
+        st.dataframe(df, use_container_width=True)
 
